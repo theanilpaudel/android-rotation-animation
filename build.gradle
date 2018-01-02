@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 ext.supportLibraryVersion = '27.0.2'
 android {
     compileSdkVersion 27
@@ -28,4 +30,84 @@ dependencies {
     })
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     testCompile 'junit:junit:4.12'
+
+}
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+group = 'theanilpaudel'
+version = '1.0.0'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'Android Rotation Library'
+            description 'A library for rotating views on android'
+            url 'https://github.com/theanilpaudel/android-rotation-animation'
+            inceptionYear '2018'
+
+            packaging 'aar'
+            groupId 'theanilpaudel'
+            artifactId 'rotatinganimation'
+            version '1.0.0'
+
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+            scm {
+                connection 'https://github.com/theanilpaudel/android-rotation-animation.git'
+                url 'https://github.com/theanilpaudel/android-rotation-animation'
+
+            }
+            developers {
+                developer {
+                    id = 'theanilpaudel'
+                    name 'Anil'
+                }
+            }
+        }
+    }
+}
+
+Properties bintrayProperties = new Properties()
+bintrayProperties.load(project.rootProject.file('bintray.properties').newDataInputStream())
+
+bintray {
+    user = bintrayProperties.getProperty('user')
+    key = bintrayProperties.get('key')
+    configurations = ['archives']
+    pkg {
+        repo = 'android'
+        name = 'android-rotation-animation'
+        userOrg = 'theanilpaudel'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/theanilpaudel/android-rotation-animation'
+        publish = true
+        version {
+            name = '1.0.0'
+            desc = 'Android Rotation Animation 1.0.0'
+            released = new Date()
+            vcsTag = 'v1.0.0'
+        }
+    }
 }
