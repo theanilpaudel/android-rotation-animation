@@ -1,7 +1,4 @@
 # android-rotation-animation
-
-# Project Title
-
 A library for rotating a view in android.
 
 ### Installing
@@ -34,7 +31,7 @@ rotation.roatateView(700);
 rotation.stopRotation(5000);
 ```
 ```
-https://imgflip.com/gif/2205u9
+<a href="https://imgflip.com/gif/2205u9"><img src="https://i.imgflip.com/2205u9.gif" title="made at imgflip.com"/></a>
 ```
 
 ## Built With
