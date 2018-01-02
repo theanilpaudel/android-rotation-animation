@@ -30,9 +30,9 @@ Rotation rotation = new Rotation(imageView,0,350,30,10,Rotation.ABSOLUTE,Rotatio
 rotation.roatateView(700);
 rotation.stopRotation(5000);
 ```
-```
+
 <a href="https://imgflip.com/gif/2205u9"><img src="https://i.imgflip.com/2205u9.gif" title="made at imgflip.com"/></a>
-```
+
 
 ## Built With
 
